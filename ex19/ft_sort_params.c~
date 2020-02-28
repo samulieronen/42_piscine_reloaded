@@ -1,0 +1,95 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sort_params.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seronen <seronen@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/15 12:49:41 by seronen           #+#    #+#             */
+/*   Updated: 2019/10/16 19:04:35 by seronen          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+void	ft_putchar(char c);
+
+void	ft_print(char **argv, int *order, int argc)
+{
+	int i;
+	int k;
+
+	i = 1;
+	k = 0;
+	while (i < argc)
+	{
+		k = 0;
+		while (argv[order[i]][k] != '\0')
+		{
+			ft_putchar(argv[order[i]][k]);
+			k++;
+		}
+		ft_putchar('\n');
+		i++;
+	}
+}
+
+int		ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] == s2[i])
+	{
+		i++;
+		if (s1[i] == '\0' || s2[i] == '\0')
+			break ;
+	}
+	if (s1[i] == '\0' && s2[i] == '\0')
+		return (0);
+	else
+		return (s1[i] - s2[i]);
+}
+
+int		*ft_algorithm(int argc, char **argv)
+{
+	int order[argc];
+	int i;
+	int j;
+	int tmp;
+
+	i = 0;
+	while (++i < argc)
+		order[i] = i;
+	i = 0;
+	while (++i < argc)
+	{
+		j = 1;
+		while (j < argc)
+		{
+			if (ft_strcmp(argv[order[i]], argv[order[j]]) < 0)
+			{
+				tmp = order[i];
+				order[i] = order[j];
+				order[j] = tmp;
+			}
+			j++;
+		}
+	}
+	ft_print(argv, order, argc);
+	return (0);
+}
+
+int		main(int argc, char **argv)
+{
+	int i;
+
+	i = 0;
+	if (argc > 1)
+	{
+		ft_algorithm(argc, argv);
+	}
+	if (argc == 1)
+	{
+		return (0);
+	}
+	return (0);
+}
